@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
@@ -32,39 +31,83 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment X - Subject/Topic</h1>
+			<h1>Experiment 2 - A Procedurally Generated Living Impression</h1>
 
 			<div class="minor-section">
-				<div id="canvas-container">
-					<!-- canvas will be added here -->
+				<div id="canvas-container"> 
+					 
 				</div>
-                <div class="fullscreen-box">
+
+                </div>
+                <div class="fullscreen-box"> 
+                    <button id="reimagine">Reimagine</button>
                     <button id="fullscreen">Fullscreen</button>
                 </div>
 			</div>
 
+
 			<div class="minor-section">
 				<h2>Description</h2>
 				<p>What are you trying to acomplish with this experiment?</p>
+				<p>I was trying to get the night sky that I found online to was as a live wallpaper using p5.js</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
 				<p>Describe in detail what you did technically and how it works?</p>
+				<p>This project consists of a few main parts, Star generations and haze generace and the gradient sky. I used for loops and some key-vaule pairs I handled the proceddule genereation in the night sky. Not to mantion the gradient sky was achieved by using the lerp function in p5.js </p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+					<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+					<p>This person was workedn on my mayself and The most difficulty i had  is I have to say leaning to use the parts to ore new things like tho </p>
 			</div>
+		</div>
 
 		</section>
 		<nav id="links" class="minor-section">
-			<!-- Put link back to homepage here. -->
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-            </ul>
+			<ul>
+				<li><a href="../index.html">Home</a></li>
+			</ul>
 		</nav>
 	</main>
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
 </body>
 </html>

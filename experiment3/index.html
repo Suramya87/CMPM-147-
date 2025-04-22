@@ -36,7 +36,15 @@
 
 			<div class="minor-section">
 				<div id="canvas-container">
-					<!-- canvas will be added here -->
+					<body>
+						<button id="reseedButton">
+						  reseed
+						</button>
+						<span id="seedReport"></span>
+						<hr />
+						<span id="canvasContainer" style="margin: 10px;"></span>
+						<textarea cols="20" rows="20" id="asciiBox" style="opacity: 0.5; letter-spacing: 1ex; width: 320px; margin: 10px; font-family: monospace;"></textarea>
+					  </body>
 				</div>
                 <div class="fullscreen-box">
                     <button id="fullscreen">Fullscreen</button>
@@ -46,16 +54,19 @@
 			<div class="minor-section">
 				<h2>Description</h2>
 				<p>What are you trying to acomplish with this experiment?</p>
+				<p>I was trying to make a generated tiled terrain.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
 				<p>Describe in detail what you did technically and how it works?</p>
+				<p>This code makes use of the noise function to tile the tiles in an ascii map which then is drawn into actual tiles which is then scene.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
 				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>I think this was an interesting exercise and I can see this being very useful for me later down th line as I like being able to make things like this.</p>
 			</div>
 
 		</section>
