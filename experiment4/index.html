@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- This title is used for tabs and bookmarks -->
+	<title>Experiment 4 - Infinite Worlds</title>
+
+	<!-- Use UTF character set, a good idea with any webpage -->
+	<meta charset="UTF-8" />
+	<!-- Set viewport so page remains consistently scaled w narrow devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Include CSS file, including a site-wide CSS and for this particular page -->
+	<link rel="stylesheet" type="text/css" href="../css/site.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<!-- Load jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<!-- Load p5.js library -->
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
+
+	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
+	<script type="text/javascript" src="../js/site.js" defer></script>
+	<script src="js/xxhash.min.js" defer></script>
+	<script src="js/project.js" defer></script>
+
+</head>
+<body>
+	<main id="content">
+		<section>
+
+			<h1>Experiment 4 - Infinite Worlds</h1>
+
+			<div class="minor-section">
+				<h2>Still waters</h2>
+				
+				<!-- Toggle button -->
+				<button id="toggle-projects">Next Project</button>
+
+				<!-- Project 1 -->
+				<div id="canvas-container">
+					<!-- canvas from sketch.js -->
+				</div>
+
+				<!-- Project 2 -->
+				<div id="canvas-container-2">
+					<!-- canvas from sketch2.js -->
+				</div>
+				
+				<!-- Project 3 -->
+				<div id="canvas-container-3">
+					<!-- canvas from sketch3.js -->
+				</div>
+
+				<div class="fullscreen-box instructions">
+					<div>
+						Arrow keys scroll. Clicking changes tiles.
+					</div>
+					<div>
+						World seed: <input type="text" id="world-seed" value="xyzzy">
+					</div>
+					<button id="fullscreen">Fullscreen</button>
+				</div>
+			</div>
+
+			<div class="minor-section two-columns">
+				<div class="showcase-img">
+					<img src="img/water.jpg" />
+				</div>
+				<div>
+					<h2>Description</h2>
+					<p>Infinite Worlds is a project where we make a few worlds that neverend</p>
+					
+				</div>
+			</div>
+
+			<div class="minor-section">
+				<h2>Technical</h2>
+				<p>Using tile maps and applying some noise to them is how these worlds are made and they each have some interactions using the mouse</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Reflection</h2>
+				<p>I simpley wished I had more time to work on this project as there are so many corners I had to cut to have something I could submit. I was only able to get one of the three worlds to work in my portfolio but the other two are linked in my document and are in my github so in the future I could have that figured out some how.</p>
+			</div>
+
+		</section>
+		<nav id="links" class="minor-section">
+			<ul>
+				<li><a href="../index.html">Home</a></li>
+			</ul>
+		</nav>
+	</main>
+
+	<script>
+		const projects = [
+			{
+				canvasId: "canvas-container",
+				script: "js/sketch.js"
+			},
+			{
+				canvasId: "canvas-container-2",
+				script: "js/sketch2.js"
+			},
+			{
+				canvasId: "canvas-container-3",
+				script: "js/sketch3.js"
+			}
+		];
+		let currentProject = 0;
+
+		function updateProjectVisibility() {
+			// Hide all canvases
+			projects.forEach((p, i) => {
+				document.getElementById(p.canvasId).style.display = i === currentProject ? "block" : "none";
+			});
+			
+			// Dynamically load the script for the current project
+			const script = document.createElement('script');
+			script.src = projects[currentProject].script;
+			document.body.appendChild(script);
+		}
+
+		document.getElementById("toggle-projects").addEventListener("click", () => {
+			currentProject = (currentProject + 1) % projects.length;
+			updateProjectVisibility();
+		});
+
+		// Initialize
+		updateProjectVisibility();
+	</script>
+</body>
+</html>
