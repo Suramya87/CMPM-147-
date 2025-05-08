@@ -66,23 +66,6 @@ function setup() {
   currentInspirationPixels = pixels;
 }
 
-// function setup() {
-//   let canvasContainer = $('.image-container');
-//   let canvasWidth = canvasContainer.width();
-//   let aspectRatio = currentInspiration.image.height / currentInspiration.image.width;
-//   let canvasHeight = canvasWidth * aspectRatio;
-
-//   currentCanvas = createCanvas(canvasWidth, canvasHeight);
-//   currentCanvas.parent(document.getElementById("active"));
-
-//   image(currentInspiration.image, 0, 0, width, height);
-//   loadPixels();
-//   currentInspirationPixels = pixels.slice(); // Save a copy of the pixels
-
-//   currentScore = Number.NEGATIVE_INFINITY;
-//   currentDesign = initDesign(currentInspiration);
-//   bestDesign = currentDesign;
-// }
 
 
 function evaluate() {

@@ -1,6 +1,7 @@
-// project.js - purpose and description here
-// Author: Your Name
-// Date:
+// project.js - Evolutionary Impressions
+
+// Author: Suramya Shakya
+// Date: 5/7/2025
 
 // NOTE: This is how we might start a basic JavaaScript OOP project
 
