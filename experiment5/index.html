@@ -86,10 +86,10 @@
 			<div class="minor-section">
 				<h2>Technical</h2>
                 <ol>
-                    <li>This project integrates inspiring images that are selectable from the drop-down on the display page. (This could be three distinct images or one image with three different sets of clues that cause the generator to interpret it in a different way.)</li>
-                    <li>The design object is initialized in inspiration-specific ways. Selecting different inspirations should lead to different behaviors of initDesign.</li>
-                    <li>The design is rendered in a way that can possibly produce results that feel related to the inspiring images. (The 30-second annealing trick should produce images that resemble the inspiring image if we squint.)</li>
-                    <li>The mutation process makes incremental changes to your design. The rate parameter should be implemented in a way that allows the user to almost stop exploration by sliding the rate down to 1%. Your generator must respond to the mutation rate slider.</li>
+                    <li>This project uses gaussian noise to handle the mutation of all the shapes that help make up the image.</li>
+                    <li>Designed to be configurable with things like handling the size,shape,number and color of the shapes.</li>
+					<li>The mutation process makes incremental changes to your design. The rate parameter should be implemented in a way that allows the user to almost stop exploration by sliding the rate down to 1%. Your generator must respond to the mutation rate slider.</li>
+                    <li>There is a weird issue with the gereantion that being you have set the mutaion rate to 1% and then swap to a different image to have a really close to refernce image result.</li>
                 </ol>
 			</div>
 
@@ -101,7 +101,7 @@
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>I was a little embrarrassed that I didn't have this wired by the time the assignment came up. But uh, being human.</p>
+				<p>This was an interesting project and was very fun to have some of my own images being created in front of my eyes using random shapes. I am particully proud of how bubbly the images lool with the use of eliplses to make up the image. I still dont understand why the code has the behavior of having a near perfect image only after I set the rate to 1% and then go to a different image and have that image look nice instantly, I feel like I have too many elements and too many variations for it to run in a meaningful amount of time.</p>
 			</div>
 
 		</section>
