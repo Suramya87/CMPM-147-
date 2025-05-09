@@ -74,7 +74,7 @@ function initDesign(inspiration) {
     let r = pixels[idx];
     let g = pixels[idx + 1];
     let b = pixels[idx + 2];
-    let a = random(100, 200);
+    let a = random(100, 300);
 
     design.fg.push({
       x, y,
