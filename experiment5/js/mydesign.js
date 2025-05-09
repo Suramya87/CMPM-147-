@@ -66,7 +66,7 @@ function initDesign(inspiration) {
   };
 
   // Use image pixels to create color shapes
-  for (let i = 0; i < 12000; i++) {
+  for (let i = 0; i < 8000; i++) {
     // for (let i = 0; i < 1200; i++) {
     let x = floor(random(width));
     let y = floor(random(height));
@@ -78,8 +78,8 @@ function initDesign(inspiration) {
 
     design.fg.push({
       x, y,
-      w: random(320, 640),
-      h: random(320, 640),
+      w: random(32, 64),
+      h: random(32, 64),
       fill: { r, g, b, a }
     });
   }
@@ -101,10 +101,10 @@ function mutateDesign(design, inspiration, rate) {
   for (let shape of design.fg) {
     shape.x = mut(shape.x, 0, width, rate);
     shape.y = mut(shape.y, 0, height, rate);
-    shape.w = mut(shape.w, 6, 24, rate);
-    shape.h = mut(shape.h, 6, 24, rate);
-    // shape.w = mut(shape.w, 32, 128, rate);
-    // shape.h = mut(shape.h, 32, 128, rate);
+    // shape.w = mut(shape.w, 6, 24, rate);
+    // shape.h = mut(shape.h, 6, 24, rate);
+    shape.w = mut(shape.w, 32, 128, rate);
+    shape.h = mut(shape.h, 32, 128, rate);
 
     shape.fill.r = mut(shape.fill.r, 0, 255, rate);
     shape.fill.g = mut(shape.fill.g, 0, 255, rate);
