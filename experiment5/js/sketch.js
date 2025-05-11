@@ -1,16 +1,3 @@
-// sketch.js - Alternate Worlds
-// Author: Suramya Shakya
-// Date:4/21/2025
-
-// Here is how you might set up an OOP p5.js project
-// Note that p5.js looks for a file called sketch.js
-
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-/* exported preload, setup, draw */
-/* global memory, dropper, restart, rate, slider, activeScore, bestScore, fpsCounter */
-/* global getInspirations, initDesign, renderDesign, mutateDesign */
-
 let bestDesign;
 let currentDesign;
 let currentScore;
@@ -19,40 +6,41 @@ let currentCanvas;
 let currentInspirationPixels;
 
 function preload() {
-  
   let allInspirations = getInspirations();
+  let imagesToLoad = allInspirations.length;
+  let imagesLoaded = 0;
 
   for (let i = 0; i < allInspirations.length; i++) {
     let insp = allInspirations[i];
-    insp.image = loadImage(insp.assetUrl);
-    let option = document.createElement("option");
-    option.value = i;
-    option.innerHTML = insp.name;
-    dropper.appendChild(option);
+
+    loadImage(insp.assetUrl, (img) => {
+      insp.image = img;
+
+      let option = document.createElement("option");
+      option.value = i;
+      option.innerHTML = insp.name;
+      dropper.appendChild(option);
+
+      imagesLoaded++;
+      if (imagesLoaded === imagesToLoad) {
+        // All images loaded
+        dropper.onchange = e => inspirationChanged(allInspirations[e.target.value]);
+        currentInspiration = allInspirations[0];
+        restart.onclick = () => inspirationChanged(allInspirations[dropper.value]);
+
+        setup(); // Now safe to call
+      }
+    });
   }
-  
-  dropper.onchange = e => inspirationChanged(allInspirations[e.target.value]);
-  currentInspiration = allInspirations[0];
-
-  restart.onclick = () =>
-    inspirationChanged(allInspirations[dropper.value]);
 }
-
-// let allInspirations;
-
-// function preload() {
-//   allInspirations = getInspirations();
-//   for (let insp of allInspirations) {
-//     insp.image = loadImage(insp.assetUrl);
-//   }
-// }
-
 
 function inspirationChanged(nextInspiration) {
   currentInspiration = nextInspiration;
   currentDesign = undefined;
   memory.innerHTML = "";
-  setup();
+  if (currentInspiration.image) {
+    setup();
+  }
 }
 
 function setup() {
@@ -61,23 +49,21 @@ function setup() {
   currentScore = Number.NEGATIVE_INFINITY;
   currentDesign = initDesign(currentInspiration);
   bestDesign = currentDesign;
-  image(currentInspiration.image, 0,0, width, height);
+  image(currentInspiration.image, 0, 0, width, height);
   loadPixels();
   currentInspirationPixels = pixels;
 }
-
-
 
 function evaluate() {
   loadPixels();
 
   let error = 0;
   let n = pixels.length;
-  
+
   for (let i = 0; i < n; i++) {
     error += sq(pixels[i] - currentInspirationPixels[i]);
   }
-  return 1/(1+error/n);
+  return 1 / (1 + error / n);
 }
 
 function memorialize() {
@@ -87,7 +73,7 @@ function memorialize() {
   img.classList.add("memory");
   img.src = url;
   img.width = width;
-  img.heigh = height;
+  img.height = height;
   img.title = currentScore;
 
   document.getElementById("best").innerHTML = "";
@@ -106,52 +92,26 @@ function memorialize() {
 let mutationCount = 0;
 
 function draw() {
-  
-  if(!currentDesign) {
+  if (!currentDesign) {
     return;
   }
+
   randomSeed(mutationCount++);
   currentDesign = JSON.parse(JSON.stringify(bestDesign));
   rate.innerHTML = slider.value;
-  mutateDesign(currentDesign, currentInspiration, slider.value/100.0);
-  
+  mutateDesign(currentDesign, currentInspiration, slider.value / 100.0);
+
   randomSeed(0);
   renderDesign(currentDesign, currentInspiration);
   let nextScore = evaluate();
   activeScore.innerHTML = nextScore;
+
   if (nextScore > currentScore) {
     currentScore = nextScore;
     bestDesign = currentDesign;
     memorialize();
     bestScore.innerHTML = currentScore;
   }
-  
+
   fpsCounter.innerHTML = Math.round(frameRate());
 }
-
-
-// function draw() {
-//   if (!currentDesign) return;
-
-//   randomSeed(mutationCount++);
-//   currentDesign = JSON.parse(JSON.stringify(bestDesign));
-
-//   let rateValue = slider.value / 100.0;
-//   rate.innerHTML = slider.value;
-//   mutateDesign(currentDesign, currentInspiration, rateValue);
-
-//   randomSeed(0);
-//   renderDesign(currentDesign, currentInspiration);
-
-//   let nextScore = evaluate();
-//   activeScore.innerHTML = nextScore.toFixed(6);
-
-//   if (nextScore > currentScore) {
-//     currentScore = nextScore;
-//     bestDesign = currentDesign;
-//     bestScore.innerHTML = currentScore.toFixed(6);
-//     memorialize();
-//   }
-
-//   fpsCounter.innerHTML = Math.round(frameRate());
-// }
