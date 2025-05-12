@@ -31,41 +31,13 @@
 
 			<h1>Experiment 4 - Infinite Worlds</h1>
 
-			<div class="minor-section">
-				<h2>Still waters</h2>
-				
-				<!-- Toggle button -->
-				<button id="toggle-projects">Next Project</button>
-
-				<!-- Project 1 -->
-				<div id="canvas-container">
-					<!-- canvas from sketch.js -->
-				</div>
-
-				<!-- Project 2 -->
-				<div id="canvas-container-2">
-					<!-- canvas from sketch2.js -->
-				</div>
-				
-				<!-- Project 3 -->
-				<div id="canvas-container-3">
-					<!-- canvas from sketch3.js -->
-				</div>
-
-				<div class="fullscreen-box instructions">
-					<div>
-						Arrow keys scroll. Clicking changes tiles.
-					</div>
-					<div>
-						World seed: <input type="text" id="world-seed" value="xyzzy">
-					</div>
-					<button id="fullscreen">Fullscreen</button>
-				</div>
-			</div>
-
-			<div class="minor-section two-columns">
-				<div class="showcase-img">
-					<img src="img/water.jpg" />
+				<div class="project-links">
+				<p>Or view each world individually:</p>
+				<ul>
+					<li><a href="world1.html">World 1 - sketch.js</a></li>
+					<li><a href="world2.html">World 2 - sketch2.js</a></li>
+					<li><a href="world3.html">World 3 - sketch3.js</a></li>
+				</ul>
 				</div>
 				<div>
 					<h2>Description</h2>
@@ -92,33 +64,40 @@
 		</nav>
 	</main>
 
-	<script>
+		<script>
 		const projects = [
-			{
-				canvasId: "canvas-container",
-				script: "js/sketch.js"
-			},
-			{
-				canvasId: "canvas-container-2",
-				script: "js/sketch2.js"
-			},
-			{
-				canvasId: "canvas-container-3",
-				script: "js/sketch3.js"
-			}
+			{ canvasId: "canvas-container", script: "js/sketch.js" },
+			{ canvasId: "canvas-container-2", script: "js/sketch2.js" },
+			{ canvasId: "canvas-container-3", script: "js/sketch3.js" }
 		];
+
 		let currentProject = 0;
+		let currentSketchScript = null;
 
 		function updateProjectVisibility() {
-			// Hide all canvases
+			// Hide all canvas containers
 			projects.forEach((p, i) => {
-				document.getElementById(p.canvasId).style.display = i === currentProject ? "block" : "none";
+			document.getElementById(p.canvasId).style.display = i === currentProject ? "block" : "none";
 			});
-			
-			// Dynamically load the script for the current project
-			const script = document.createElement('script');
-			script.src = projects[currentProject].script;
-			document.body.appendChild(script);
+
+			// Remove previous canvas (if any)
+			const existingCanvas = document.querySelector("canvas");
+			if (existingCanvas) existingCanvas.remove();
+
+			// Remove previous sketch script (if any)
+			if (currentSketchScript) currentSketchScript.remove();
+
+			// Load new sketch script
+			const newScript = document.createElement("script");
+			newScript.src = projects[currentProject].script + "?v=" + Date.now(); // prevent caching
+			newScript.id = "sketch-script";
+
+			newScript.onload = () => {
+			if (typeof setup === "function") setup();
+			};
+
+			document.body.appendChild(newScript);
+			currentSketchScript = newScript;
 		}
 
 		document.getElementById("toggle-projects").addEventListener("click", () => {
@@ -126,8 +105,9 @@
 			updateProjectVisibility();
 		});
 
-		// Initialize
+		// Initial project load
 		updateProjectVisibility();
-	</script>
+		</script>
+
 </body>
 </html>
