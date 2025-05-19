@@ -22,7 +22,6 @@ new p5(function(p) {
   };
 });
 
-// 🌊 Tilemap logic STARTS here (global scope)
 let worldSeed;
 let splashes = []; 
 let noiseScale = 0.2;
